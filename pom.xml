@@ -13,6 +13,7 @@
     <module>how-dev-biz</module>
     <module>how-dev-common</module>
     <module>how-dev-schedule</module>
+    <module>how-dev-manage</module>
   </modules>
 
   <name>Maven</name>
