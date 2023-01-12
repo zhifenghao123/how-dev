@@ -1,13 +1,6 @@
 package com.howdev.api.model;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.context.MessageSource;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
-
-import java.util.List;
-import java.util.Locale;
 
 /**
  * BaseResponse class
