@@ -56,11 +56,11 @@
   <!--<distributionManagement>
     <repository>
       <id>hao-tech</id>
-      <url>http://tech.hao.com/nexus/content/repositories/Duxiaoman_Local</url>
+      <url>http://tech.hao.com/nexus/content/repositories/HaoTech_Local</url>
     </repository>
     <snapshotRepository>
       <id>hao-tech_Snapshots</id>
-      <url>http://tech.hao.com/nexus/content/repositories/Duxiaoman_Local_Snapshots</url>
+      <url>http://tech.hao.com/nexus/content/repositories/HaoTech_Local_Snapshots</url>
     </snapshotRepository>
   </distributionManagement>-->
 
