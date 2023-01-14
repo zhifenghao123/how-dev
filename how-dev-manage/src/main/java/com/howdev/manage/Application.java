@@ -1,4 +1,4 @@
-package com.howdev.app;
+package com.howdev.manage;
 
 /**
  * Application class
