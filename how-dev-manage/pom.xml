@@ -11,5 +11,22 @@
 
     <artifactId>how-dev-manage</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!--mysql-->
+        <dependency>
+            <artifactId>mysql-connector-java</artifactId>
+            <groupId>mysql</groupId>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+        </dependency>
+
+    </dependencies>
 
 </project>
