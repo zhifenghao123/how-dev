@@ -1,4 +1,4 @@
-package com.howdev.api.model;
+package com.howdev.manage.vo;
 
 import org.apache.commons.lang3.StringUtils;
 
