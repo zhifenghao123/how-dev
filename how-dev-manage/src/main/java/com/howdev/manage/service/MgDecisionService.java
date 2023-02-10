@@ -1,8 +1,20 @@
-package com.howdev.manage.service;/**
+package com.howdev.manage.service;
+
+import com.howdev.manage.entity.MgDecisionInfo;
+
+/**
  * MgDecisionService class
  *
  * @author haozhifeng
  * @date 2023/02/10
  */
-public class MgDecisionService {
+public interface MgDecisionService {
+    /**
+     * create
+     *
+     * @param mgDecisionInfo mgDecisionInfo
+     * @return:
+     * @author: haozhifeng
+     */
+    boolean create(MgDecisionInfo mgDecisionInfo);
 }
