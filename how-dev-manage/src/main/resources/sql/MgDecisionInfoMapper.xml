@@ -13,11 +13,11 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="creator" jdbcType="VARCHAR" property="creator" />
     <result column="modifier" jdbcType="VARCHAR" property="modifier" />
-    <result column="business_line" jdbcType="VARCHAR" property="businessLine" />
+    <result column="biz_line" jdbcType="VARCHAR" property="bizLine" />
   </resultMap>
   <sql id="Base_Column_List">
     id, decision_key, decision_type, decision_name, decision_desc, version, `enable`, 
-    create_time, update_time, creator, modifier, business_line
+    create_time, update_time, creator, modifier, biz_line
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -33,11 +33,11 @@
     insert into mg_decision_info (decision_key, decision_type, decision_name, 
       decision_desc, version, `enable`, 
       create_time, update_time, creator, 
-      modifier, business_line)
+      modifier, biz_line)
     values (#{decisionKey,jdbcType=VARCHAR}, #{decisionType,jdbcType=VARCHAR}, #{decisionName,jdbcType=VARCHAR}, 
       #{decisionDesc,jdbcType=VARCHAR}, #{version,jdbcType=INTEGER}, #{enable,jdbcType=TINYINT}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, 
-      #{modifier,jdbcType=VARCHAR}, #{businessLine,jdbcType=VARCHAR})
+      #{modifier,jdbcType=VARCHAR}, #{bizLine,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.howdev.manage.entity.MgDecisionInfo" useGeneratedKeys="true">
     insert into mg_decision_info
@@ -72,8 +72,8 @@
       <if test="modifier != null">
         modifier,
       </if>
-      <if test="businessLine != null">
-        business_line,
+      <if test="bizLine != null">
+        biz_line,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -107,8 +107,8 @@
       <if test="modifier != null">
         #{modifier,jdbcType=VARCHAR},
       </if>
-      <if test="businessLine != null">
-        #{businessLine,jdbcType=VARCHAR},
+      <if test="bizLine != null">
+        #{bizLine,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -145,8 +145,8 @@
       <if test="modifier != null">
         modifier = #{modifier,jdbcType=VARCHAR},
       </if>
-      <if test="businessLine != null">
-        business_line = #{businessLine,jdbcType=VARCHAR},
+      <if test="bizLine != null">
+        biz_Line = #{bizLine,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -163,7 +163,7 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       creator = #{creator,jdbcType=VARCHAR},
       modifier = #{modifier,jdbcType=VARCHAR},
-      business_line = #{businessLine,jdbcType=VARCHAR}
+      biz_Line = #{bizLine,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>
