@@ -66,7 +66,7 @@ public class MgDecisionInfo implements Serializable {
     /**
      * 租户
      */
-    private String businessLine;
+    private String bizLine;
 
     private static final long serialVersionUID = 1L;
 
@@ -158,11 +158,11 @@ public class MgDecisionInfo implements Serializable {
         this.modifier = modifier;
     }
 
-    public String getBusinessLine() {
-        return businessLine;
+    public String getBizLine() {
+        return bizLine;
     }
 
-    public void setBusinessLine(String businessLine) {
-        this.businessLine = businessLine;
+    public void setBizLine(String bizLine) {
+        this.bizLine = bizLine;
     }
 }
