@@ -10,5 +10,6 @@ Content-Type: application/json
   "decisionName":"申请",
   "decisionDesc":"申请",
   "version": 1,
-  "enable": 1
+  "enable": 1,
+  "bizLine": "B"
 }
