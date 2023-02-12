@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.howdev.manage.mapper.MgDecisionInfoDao">
+<mapper namespace="com.howdev.manage.mapper.MgDecisionInfoMapper">
   <resultMap id="BaseResultMap" type="com.howdev.manage.entity.MgDecisionInfo">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="decision_key" jdbcType="VARCHAR" property="decisionKey" />
