@@ -1,8 +1,250 @@
-package com.howdev.manage.aspect;/**
+package com.howdev.manage.aspect;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.howdev.manage.RetCodeEnum;
+import com.howdev.manage.annotation.SwitchDataSourceTag;
+import com.howdev.manage.config.datasource.DynamicDataSourceHolder;
+import com.howdev.manage.util.JacksonUtil;
+import com.howdev.manage.util.LogUtil;
+import com.howdev.manage.util.LoggerProxy;
+import com.howdev.manage.util.ObjectFieldUtil;
+import com.howdev.manage.util.SpelUtil;
+import com.howdev.manage.util.SystemUtil;
+import com.howdev.manage.vo.BaseResponse;
+import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.aop.framework.AopProxyUtils;
+import org.springframework.core.BridgeMethodResolver;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+import org.springframework.util.ClassUtils;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.Map;
+
+/**
  * ExceptionAspect class
  *
  * @author haozhifeng
  * @date 2023/02/10
  */
+@Aspect
+@Order(0)
+@Component
 public class ExceptionAspect {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionAspect.class);
+
+    public static final String PARAMS_REQUEST = "request";
+    public static final String PARAMS_REQUEST_BIZ_LINE = "bizLine";
+
+    private static int MAX_RETRY_TIME = 3;
+
+
+    private ExceptionAspect() {
+        // no need to do
+    }
+
+    @Pointcut("execution(@com.howdev.manage.annotation.ApiException com.howdev.manage.vo.BaseResponse "
+            + "*(..))"
+            + "|| within(@com.howdev.manage.annotation.ApiException *)")
+    public void pointcut() {
+        // nothing to do
+    }
+
+    @Around("pointcut()")
+    public Object process(ProceedingJoinPoint proceedingJoinPoint) {
+        // 设置重试次数, 记录开始时间
+        long start = System.currentTimeMillis();
+        int retryTime = 0;
+
+        LogUtil.buildAndBindLog();
+
+        // 设置执行结果
+        Object result = null;
+
+        // 获取方法信息
+        Object[] args = proceedingJoinPoint.getArgs();
+        Method method = findSpecificMethod(proceedingJoinPoint);
+        MethodSignature methodSignature = (MethodSignature) proceedingJoinPoint.getSignature();
+
+        // request，获取ip/url等
+        HttpServletRequest request = getHttpServletRequest();
+        String sourceIp = getIpAddress(request);
+        String url = getUrl(methodSignature, request);
+        ObjectWriter writer = JacksonUtil.getWriter();
+        Map<String, Object> requestParamMap = null;
+        String requestArgs = null;
+        String bizLine = null;
+
+        try {
+            requestParamMap = SpelUtil.getParamMap(proceedingJoinPoint, methodSignature);
+            requestArgs = writer.writeValueAsString(requestParamMap);
+        } catch (JsonProcessingException e) {
+            LOGGER.error("parse json error", e);
+        }
+
+        Logger logger = getLogger(proceedingJoinPoint);
+
+        LoggerProxy.LoggerTemplate.RecievedMessage_HTTP.log(logger, url,
+                sourceIp, SystemUtil.getLocalIp(), requestArgs);
+
+        SwitchDataSourceTag switchDataSourceTag = methodSignature.getMethod().getAnnotation(SwitchDataSourceTag.class);
+        // 方法上有@SwitchDataSourceTag注解，则说明需要动态切换数据源
+        if (switchDataSourceTag != null) {
+            Object paramObject = MapUtils.getObject(requestParamMap, PARAMS_REQUEST);
+            bizLine = null != paramObject ? (String) ObjectFieldUtil.getFieldValueWithException(paramObject,
+                    PARAMS_REQUEST_BIZ_LINE) : null;
+            logger.info("bizLine:" + bizLine);
+
+            String operateDatabase = switchDataSourceTag.operateDatabase();
+
+            DynamicDataSourceHolder.setDataSourceKey(
+                    StringUtils.join(Arrays.asList(bizLine, operateDatabase), "_"));
+
+            logger.info("AOP  setDataSourceKey:" + DynamicDataSourceHolder.getDataSourceKey());
+        }
+
+        while (retryTime < MAX_RETRY_TIME && result == null) {
+
+            try {
+
+                result = proceedingJoinPoint.proceed();
+            } catch (Throwable e) {
+                // TODO LOG
+                LOGGER.error("build error response fail.", e);
+            }
+
+            retryTime = retryTime + 1;
+        }
+
+        // 超出重试次数依然无法获得结果, 设置未知错误的返回
+        if (result == null) {
+            result = buildErrorResponse(methodSignature, RetCodeEnum.FAILED, "Unknown error!");
+        }
+
+        LoggerProxy.LoggerTemplate.processMessageFinished_HTTP.log(logger, url,
+                sourceIp, SystemUtil.getLocalIp(), requestArgs, JacksonUtil.toJson(result),
+                RetCodeEnum.SUCCESS.getRetCode(), System.currentTimeMillis() - start);
+
+        LogUtil.unbindLogId();
+
+        return result;
+    }
+
+    private Logger getLogger(ProceedingJoinPoint proceedingJoinPoint) {
+        MethodSignature signature = (MethodSignature) proceedingJoinPoint.getSignature();
+        return LoggerFactory.getLogger(signature.getDeclaringType());
+    }
+
+    /**
+     * 根据错误信息构造 response
+     *
+     * @param methodSignature 方法签名
+     * @param retCode         错误码
+     * @param errorMsg        错误消息
+     * @return 错误码对应的返回结果
+     */
+    @SuppressWarnings("unchecked")
+    private Object buildErrorResponse(MethodSignature methodSignature, RetCodeEnum retCode, String errorMsg) {
+        try {
+            Constructor<? extends BaseResponse> constructor =
+                    methodSignature.getReturnType().getConstructor(String.class, String.class);
+            // construct default response
+            return constructor.newInstance(retCode.getRetCode(), errorMsg);
+        } catch (Exception e) {
+            LOGGER.error("build error response fail. retCode={}, errorMsg={}", retCode, errorMsg, e);
+            return null;
+        }
+    }
+
+    /**
+     * 根据 ProceedingJoinPoint 找到最具体的执行方法（穿透代理等）
+     *
+     * @param pjp 切面
+     * @return 切面执行的方法 {@link Method}
+     */
+    private Method findSpecificMethod(ProceedingJoinPoint pjp) {
+
+        // 当前正在执行的方法
+        MethodSignature methodSign = (MethodSignature) pjp.getStaticPart().getSignature();
+        Method method = methodSign.getMethod();
+
+        // 找到代理对象的真实执行方法
+        Method specificMethod = ClassUtils.getMostSpecificMethod(
+                method, AopProxyUtils.ultimateTargetClass(pjp.getThis())
+        );
+
+        // 如果要处理带有泛型参数的方法，找到原始方法
+        return BridgeMethodResolver.findBridgedMethod(specificMethod);
+    }
+
+    public static HttpServletRequest getHttpServletRequest() {
+        return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+    }
+
+    /**
+     * 获取 ip 地址
+     *
+     * @param request HttpServletRequest http请求参数
+     * @return 真实的 ip 地址
+     */
+    private String getIpAddress(HttpServletRequest request) {
+
+        try {
+            String ip = request.getHeader("X-Real-IP");
+            if (StringUtils.isNotBlank(ip) && !"unknow".equalsIgnoreCase(ip)) {
+                return ip;
+            }
+
+            ip = request.getHeader("X-Forwarded-For");
+            if (StringUtils.isNotBlank(ip) && !"unknow".equalsIgnoreCase(ip)) {
+                // 多次反向代理后会有多个IP值，第一个为真实IP。
+                int index = ip.indexOf(',');
+                if (index == -1) {
+                    return ip;
+                } else {
+                    return ip.substring(0, index);
+                }
+            }
+            return request.getRemoteAddr();
+
+        } catch (Exception e) {
+            LOGGER.error("get remote ip fail.", e);
+        }
+
+        return "unknow";
+    }
+
+    /**
+     * 获取真实的url
+     *
+     * @param methodSignature methodSignature
+     * @return: 真实的url
+     */
+    private String getUrl(MethodSignature methodSignature, HttpServletRequest request) {
+        String url;
+        // 如果含有@RequestMapping注解，则为 http 请求;否则即为金融网关接口
+        if (methodSignature.getMethod().isAnnotationPresent(RequestMapping.class)) {
+            url = request.getRequestURI();
+        } else {
+            url = methodSignature.getDeclaringType().getSimpleName() + "/" + methodSignature.getMethod().getName();
+        }
+        return url;
+    }
+
+
 }
