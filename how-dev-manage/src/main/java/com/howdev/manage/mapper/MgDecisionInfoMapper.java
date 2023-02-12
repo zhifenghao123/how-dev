@@ -2,7 +2,7 @@ package com.howdev.manage.mapper;
 
 import com.howdev.manage.entity.MgDecisionInfo;
 
-public interface MgDecisionInfoDao {
+public interface MgDecisionInfoMapper {
     int deleteByPrimaryKey(Long id);
 
     int insert(MgDecisionInfo record);
