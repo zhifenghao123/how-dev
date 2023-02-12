@@ -38,9 +38,6 @@ public final class LoggerProxy {
                         "response", "retCode", "costs")),
         processMessageFinished_KAFKA(MethodNameEnum.processMessageFinished.name(), MethodEnum.KAFKA.name(),
                 generateTemplate("methodName", "method", "url", "localIp", "request", "response", "retCode", "costs")),
-        processMessageFinished_KAFKA_EVENT_CALLBACK(MethodNameEnum.processMessageFinished.name(),
-                MethodEnum.KAFKA.name(),generateTemplate("methodName", "method", "url", "localIp", "request",
-                "response", "eventType", "msgType", "decisionResult","risCode","retCode", "costs", "eventCost")),
         processMessageFinished_RPC(MethodNameEnum.processMessageFinished.name(), MethodEnum.RPC.name(),
                 generateTemplate("methodName", "method", "url", "sourceIp", "sourceApp", "localIp", "request",
                         "response", "retCode", "costs")),
@@ -139,20 +136,9 @@ public final class LoggerProxy {
 
 
 
-    public static final void invokeMonitor(Logger logger, String methodName, long methodCost, String retCode,
-                                           String retMsg) {
-        omp(logger, methodName, methodCost, null, null, null, retCode, retMsg, null, null);
-    }
-
-
 
     private static final String DEFAULT_VALUE = "NULL";
-    private static final String DEFAULT_RIS_MSG_VALUE = "no_config";
 
-
-    public static final void omp(Logger logger, String log, Object... params) {
-        logger.info("RIS-MONITOR:" + log, params);
-    }
 
     /**
      * Is the logger instance enabled for the DEBUG level?
