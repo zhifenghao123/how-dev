@@ -1,4 +1,4 @@
-package com.howdev.common.datamodel.tree.childnotation;
+package com.howdev.common.datamodel.tree.child;
 
 /**
  * ChildNode class
