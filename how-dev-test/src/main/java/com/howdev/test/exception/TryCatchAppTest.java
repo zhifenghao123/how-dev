@@ -16,6 +16,8 @@ public class TryCatchAppTest {
 
         System.out.println("-----------------------");
         System.out.println(tryCatchFinallyWithReturn3());
+        System.out.println("---------------");
+        System.out.println(tryCatchFinallyWithReturn4());
 
 
     }
@@ -86,6 +88,21 @@ public class TryCatchAppTest {
         } finally {
             return ++i;
         }
+    }
+
+    public static int tryCatchFinallyWithReturn4() {
+        int result = 0;
+        try {
+            result = 200;
+            throw new Exception();
+
+        } catch (Exception e) {
+            System.out.println("execute catch exception");
+            result = -1;
+        } finally {
+            System.out.println("execute finally");
+        }
+        return result;
     }
 
 }
