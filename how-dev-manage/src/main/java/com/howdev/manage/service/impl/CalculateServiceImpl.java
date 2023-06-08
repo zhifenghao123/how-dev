@@ -65,7 +65,7 @@ public class CalculateServiceImpl implements CalculateService {
 
     private int doCalculate(int start, int end) {
        // long startTime = System.currentTimeMillis();
-        LOGGER.info("start calculate. threadName={}.", Thread.currentThread().getName());
+        LOGGER.info("start calculate [{},{}]. threadName={}.", start, end, Thread.currentThread().getName());
         int sum =0;
         for (int i = start; i < end; i++) {
             sum += i;
@@ -84,7 +84,7 @@ public class CalculateServiceImpl implements CalculateService {
     @Override
     public int calculate2() {
         List<Future<Integer>> futures = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 16; i++) {
             int finalI = i;
             Callable<Integer> callable = () -> doCalculate(finalI * 100, (finalI +1) * 100 -1);
             Future<Integer> future = executorService.submit(callable);
