@@ -7,14 +7,14 @@ import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
- * CallerRunPolicy class
+ * CallerRunsWithLogPolicy class
  *
  * @author haozhifeng
  * @date 2023/06/08
  */
-public class CallerRunPolicy implements RejectedExecutionHandler {
+public class CallerRunsWithLogPolicy implements RejectedExecutionHandler {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CallerRunPolicy.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CallerRunsWithLogPolicy.class);
 
     @Override
     public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
