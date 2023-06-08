@@ -25,7 +25,7 @@ public class ThreadPoolConfigure {
     @Value("${how-dev.manage.thread-poll.calculate.max-pool-size:3}")
     private int maxPoolSize;
 
-    @Value("${how-dev.manage.thread-poll.calculate.queue-capacity:150}")
+    @Value("${how-dev.manage.thread-poll.calculate.queue-capacity:15}")
     private int queueCapacity;
 
     @Bean
