@@ -14,6 +14,9 @@ public class TryCatchAppTest {
         System.out.println("-----------------------");
         System.out.println(tryCatchFinallyWithReturn2());
 
+        System.out.println("-----------------------");
+        System.out.println(tryCatchFinallyWithReturn3());
+
 
     }
 
@@ -70,4 +73,19 @@ public class TryCatchAppTest {
         }
         return i;
     }
+
+    public static int tryCatchFinallyWithReturn3() {
+        int i = 0;
+        try {
+            i++;
+            i = i / 0;
+            return i++;
+        } catch (Exception e) {
+            i++;
+            return i++;
+        } finally {
+            return ++i;
+        }
+    }
+
 }
