@@ -17,6 +17,7 @@
     <module>how-dev-schedule</module>
     <module>how-dev-manage</module>
     <module>how-dev-test</module>
+      <module>how-dev-framework</module>
   </modules>
 
   <!--SpringBoot父级-->
