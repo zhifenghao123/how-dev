@@ -1,4 +1,4 @@
-package com.howdev.async.async.api;
+package com.howdev.framework.async.api;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.RandomUtils;
