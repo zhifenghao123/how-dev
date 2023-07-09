@@ -1,0 +1,13 @@
+{
+    "type":"async",
+    "reqId":"1111111111",
+    "params":{
+        "kuaishou_loan_user_id":"444666555",
+        "seller_type":"个人卖家",
+        "seller_name":"郝志锋",
+        "shop_name":"Hao\🥦的小店",
+        "shop_score":"4.50",
+        "shop_rank":"中",
+        "shop_status":"正常"
+    }
+}
