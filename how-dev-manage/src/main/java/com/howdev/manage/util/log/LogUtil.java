@@ -1,5 +1,6 @@
-package com.howdev.manage.util;
+package com.howdev.manage.util.log;
 
+import com.howdev.manage.util.GlobalUtil;
 import org.slf4j.MDC;
 
 /**
