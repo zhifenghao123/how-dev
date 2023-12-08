@@ -3,16 +3,12 @@ package com.howdev.manage.aspect;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.howdev.manage.enumeration.RetCodeEnum;
-import com.howdev.manage.annotation.SwitchDataSourceTag;
-import com.howdev.manage.config.datasource.DynamicDataSourceHolder;
 import com.howdev.manage.util.JacksonUtil;
-import com.howdev.manage.util.log.LogUtil;
-import com.howdev.manage.util.log.LoggerProxy;
-import com.howdev.manage.util.ObjectFieldUtil;
 import com.howdev.manage.util.SpelUtil;
 import com.howdev.manage.util.SystemUtil;
+import com.howdev.manage.util.log.LogUtil;
+import com.howdev.manage.util.log.LoggerProxy;
 import com.howdev.manage.vo.BaseResponse;
-import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -33,7 +29,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -47,9 +42,6 @@ import java.util.Map;
 @Component
 public class ExceptionAspect {
     private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionAspect.class);
-
-    public static final String PARAMS_REQUEST = "request";
-    public static final String PARAMS_REQUEST_BIZ_LINE = "bizLine";
 
     private static int MAX_RETRY_TIME = 3;
 
@@ -110,22 +102,6 @@ public class ExceptionAspect {
 
         LoggerProxy.LoggerTemplate.RecievedMessage_HTTP.log(logger, url,
                 sourceIp, SystemUtil.getLocalIp(), requestArgs);
-
-        SwitchDataSourceTag switchDataSourceTag = methodSignature.getMethod().getAnnotation(SwitchDataSourceTag.class);
-        // 方法上有@SwitchDataSourceTag注解，则说明需要动态切换数据源
-        if (switchDataSourceTag != null) {
-            Object paramObject = MapUtils.getObject(requestParamMap, PARAMS_REQUEST);
-            bizLine = null != paramObject ? (String) ObjectFieldUtil.getFieldValueWithException(paramObject,
-                    PARAMS_REQUEST_BIZ_LINE) : null;
-            logger.info("bizLine:" + bizLine);
-
-            String operateDatabase = switchDataSourceTag.operateDatabase();
-
-            DynamicDataSourceHolder.setDataSourceKey(
-                    StringUtils.join(Arrays.asList(bizLine, operateDatabase), "_"));
-
-            logger.info("AOP  setDataSourceKey:" + DynamicDataSourceHolder.getDataSourceKey());
-        }
 
         while (retryTime < MAX_RETRY_TIME && result == null) {
 
