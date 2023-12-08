@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 @RequestMapping("download")
-@ApiException
 public class DownloadController {
 
     @RequestMapping(value = "downloadResult")
