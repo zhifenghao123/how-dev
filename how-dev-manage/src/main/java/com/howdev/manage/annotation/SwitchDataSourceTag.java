@@ -16,9 +16,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface SwitchDataSourceTag {
-    /**
-     * 对流程平台运行时数据库库表进行读或者写
-     */
+
     public static final String DATABASE_DECISION_MANAGE = "decisionManage";
 
     String operateDatabase() default "";
