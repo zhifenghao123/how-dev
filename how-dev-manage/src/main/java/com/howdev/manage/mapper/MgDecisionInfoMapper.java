@@ -2,6 +2,8 @@ package com.howdev.manage.mapper;
 
 import com.howdev.manage.entity.MgDecisionInfo;
 
+import java.util.List;
+
 public interface MgDecisionInfoMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -14,4 +16,6 @@ public interface MgDecisionInfoMapper {
     int updateByPrimaryKeySelective(MgDecisionInfo record);
 
     int updateByPrimaryKey(MgDecisionInfo record);
+
+    List<MgDecisionInfo> selectAll();
 }
