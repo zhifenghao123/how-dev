@@ -1,4 +1,4 @@
-package com.howdev.manage;
+package com.howdev.manage.enumeration;
 
 import com.howdev.manage.util.log.core.ErrorCodeEnum;
 
