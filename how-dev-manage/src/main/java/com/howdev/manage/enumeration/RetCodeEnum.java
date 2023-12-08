@@ -1,5 +1,7 @@
 package com.howdev.manage;
 
+import com.howdev.manage.util.log.core.ErrorCodeEnum;
+
 import java.text.MessageFormat;
 
 /**
@@ -8,7 +10,7 @@ import java.text.MessageFormat;
  * @author haozhifeng
  * @date 2023/02/12
  */
-public enum  RetCodeEnum {
+public enum  RetCodeEnum implements ErrorCodeEnum {
     /**
      * 成功
      */
@@ -66,5 +68,16 @@ public enum  RetCodeEnum {
             buffer.append(" ").append("{").append(i).append("}");
         }
         return MessageFormat.format(buffer.toString(), nonNullArgs);
+    }
+
+
+    @Override
+    public String getErrorCode() {
+        return getRetCode();
+    }
+
+    @Override
+    public String getErrorMessage() {
+        return getRetMsg();
     }
 }

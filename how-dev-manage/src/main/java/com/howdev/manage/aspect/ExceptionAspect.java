@@ -2,7 +2,7 @@ package com.howdev.manage.aspect;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.howdev.manage.RetCodeEnum;
+import com.howdev.manage.enumeration.RetCodeEnum;
 import com.howdev.manage.annotation.SwitchDataSourceTag;
 import com.howdev.manage.config.datasource.DynamicDataSourceHolder;
 import com.howdev.manage.util.JacksonUtil;
@@ -58,9 +58,18 @@ public class ExceptionAspect {
         // no need to do
     }
 
-    @Pointcut("execution(@com.howdev.manage.annotation.ApiException com.howdev.manage.vo.BaseResponse "
-            + "*(..))"
-            + "|| within(@com.howdev.manage.annotation.ApiException *)")
+//    @Pointcut("execution(@com.howdev.manage.annotation.ApiException com.howdev.manage.vo.BaseResponse "
+//            + "*(..))"
+//            + "|| within(@com.howdev.manage.annotation.ApiException *)")
+
+
+    /**
+     * 切点：所有含@ApiException注解的方法
+     * 或者 有@ApiException注解的类中所有返回BaseResponse对象的方法
+     *
+     */
+    @Pointcut("execution(@com.howdev.manage.annotation.ApiException com.howdev.manage.vo.BaseResponse *(..)) " +
+            "|| (execution(com.howdev.manage.vo.BaseResponse *(..)) && within(@com.howdev.manage.annotation.ApiException *)))")
     public void pointcut() {
         // nothing to do
     }
