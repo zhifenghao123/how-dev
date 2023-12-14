@@ -99,34 +99,17 @@ public class Product implements EntityTableConvertible {
         this.updated = updated;
     }
 
-    public String convertToInsertVarcharValue(Object obj) {
-        if (obj == null) {
-            return null;
-        }else if (obj instanceof String) {
-            return "'" + obj + "'";
-        } else if (obj instanceof Date) {
-            return "'" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(obj) + "'";
-        } else if (obj instanceof Boolean) {
-            if ((Boolean) obj) {
-                return "1";
-            } else {
-                return "0";
-            }
-        } else {
-            return obj.toString();
-        }
-    }
 
     @Override
     public String convertToInsertSql() {
         return "insert into " + TABLE_NAME
                 + " values ("
-                + convertToInsertVarcharValue(id) + ","
-                + convertToInsertVarcharValue(productId) + ","
+                + id + ","
+                + productId + ","
                 + convertToInsertVarcharValue(name) + ","
                 + convertToInsertVarcharValue(description) + ","
-                + convertToInsertVarcharValue(price) + ","
-                + convertToInsertVarcharValue(categoryId) + ","
+                + price + ","
+                + categoryId + ","
                 + convertToInsertVarcharValue(created) + ","
                 + convertToInsertVarcharValue(updated) + ")";
     }
