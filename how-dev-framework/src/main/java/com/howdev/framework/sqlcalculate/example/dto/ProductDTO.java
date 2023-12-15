@@ -14,7 +14,6 @@ public class ProductDTO {
     private String name;
     private String description;
     private String price;
-    private Long categoryId;
     private Date created;
     private Date updated;
 
@@ -56,14 +55,6 @@ public class ProductDTO {
 
     public void setPrice(String price) {
         this.price = price;
-    }
-
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
     }
 
     public Date getCreated() {

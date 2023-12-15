@@ -41,7 +41,6 @@ public class QueryProductStatService extends SqlCalculate {
             product.setProductId(productDTO.getProductId());
             product.setName(productDTO.getName());
             product.setPrice(productDTO.getPrice());
-            product.setCategoryId(productDTO.getCategoryId());
             product.setCreated(productDTO.getCreated());
             product.setUpdated(productDTO.getUpdated());
             return product;

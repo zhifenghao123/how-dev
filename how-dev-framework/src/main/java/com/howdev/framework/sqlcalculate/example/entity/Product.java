@@ -3,7 +3,6 @@ package com.howdev.framework.sqlcalculate.example.entity;
 import com.howdev.framework.sqlcalculate.jdbc.table.EntityTableConvertible;
 import com.howdev.framework.sqlcalculate.jdbc.table.Table;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -22,7 +21,6 @@ public class Product implements EntityTableConvertible {
             + "  `name` varchar(128),"
             + "  `description` varchar(128),"
             + "  `price` decimal(10,2),"
-            + "  `categoryId` bigint(20),"
             + "  `created` datetime,"
             + "  `updated` datetime"
             + ");";
@@ -31,7 +29,6 @@ public class Product implements EntityTableConvertible {
     private String name;
     private String description;
     private String price;
-    private Long categoryId;
     private Date created;
     private Date updated;
 
@@ -75,14 +72,6 @@ public class Product implements EntityTableConvertible {
         this.price = price;
     }
 
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
-
     public Date getCreated() {
         return created;
     }
@@ -109,7 +98,6 @@ public class Product implements EntityTableConvertible {
                 + convertToInsertVarcharValue(name) + ","
                 + convertToInsertVarcharValue(description) + ","
                 + price + ","
-                + categoryId + ","
                 + convertToInsertVarcharValue(created) + ","
                 + convertToInsertVarcharValue(updated) + ")";
     }
