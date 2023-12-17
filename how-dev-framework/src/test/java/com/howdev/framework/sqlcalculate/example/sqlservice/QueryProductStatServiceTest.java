@@ -44,6 +44,7 @@ public void testProcess() throws Exception {
     productDTO1.setName("华为Nova 7 5G");
     productDTO1.setDescription("华为5G智能手机，麒麟芯片，值得拥有");
     productDTO1.setPrice("2000.00");
+    productDTO1.setQuantity(30000);
     productDTO1.setCreated(DateUtils.parseDate("2021-11-07 12:22:39", "yyyy-MM-dd HH:mm:ss"));
     productDTO1.setUpdated(DateUtils.parseDate("2021-11-07 12:22:39", "yyyy-MM-dd HH:mm:ss"));
 
@@ -53,6 +54,7 @@ public void testProcess() throws Exception {
     productDTO2.setName("海尔洗衣机");
     productDTO2.setDescription("海尔出品，全自动智能洗衣机");
     productDTO2.setPrice("3600.00");
+    productDTO2.setQuantity(2000);
     productDTO2.setCreated(DateUtils.parseDate("2022-01-07 12:22:39", "yyyy-MM-dd HH:mm:ss"));
     productDTO2.setUpdated(DateUtils.parseDate("2022-01-07 12:22:39", "yyyy-MM-dd HH:mm:ss"));
 
@@ -62,6 +64,7 @@ public void testProcess() throws Exception {
     productDTO3.setName("纯甄牛奶");
     productDTO3.setDescription("好牛奶，助力你的健康成长");
     productDTO3.setPrice("50.00");
+    productDTO3.setQuantity(50000);
     productDTO3.setCreated(DateUtils.parseDate("2022-10-07 12:22:39", "yyyy-MM-dd HH:mm:ss"));
     productDTO3.setUpdated(DateUtils.parseDate("2022-10-07 12:22:39", "yyyy-MM-dd HH:mm:ss"));
 
@@ -71,6 +74,7 @@ public void testProcess() throws Exception {
     productDTO4.setName("陕西富士苹果");
     productDTO4.setDescription("出自陕西的好苹果，富含各种维生素，唯甜，水多");
     productDTO4.setPrice("3.25");
+    productDTO4.setQuantity(100000);
     productDTO4.setCreated(DateUtils.parseDate("2022-12-31 12:22:39", "yyyy-MM-dd HH:mm:ss"));
     productDTO4.setUpdated(DateUtils.parseDate("2022-12-31 12:22:39", "yyyy-MM-dd HH:mm:ss"));
 
@@ -80,6 +84,7 @@ public void testProcess() throws Exception {
     productDTO5.setName("黄心土豆");
     productDTO5.setDescription("买土豆就选黄心土豆");
     productDTO5.setPrice("0.98");
+    productDTO5.setQuantity(45000);
     productDTO5.setCreated(DateUtils.parseDate("2023-03-07 12:22:39", "yyyy-MM-dd HH:mm:ss"));
     productDTO5.setUpdated(DateUtils.parseDate("2023-03-07 12:22:39", "yyyy-MM-dd HH:mm:ss"));
 
@@ -89,6 +94,7 @@ public void testProcess() throws Exception {
     productDTO6.setName("MacBook Pro 13");
     productDTO6.setDescription("苹果的高端笔记本，成功人士的必配电脑");
     productDTO6.setPrice("8000.00");
+    productDTO6.setQuantity(2500);
     productDTO6.setCreated(DateUtils.parseDate("2023-07-07 12:22:39", "yyyy-MM-dd HH:mm:ss"));
     productDTO6.setUpdated(DateUtils.parseDate("2023-07-07 12:22:39", "yyyy-MM-dd HH:mm:ss"));
 

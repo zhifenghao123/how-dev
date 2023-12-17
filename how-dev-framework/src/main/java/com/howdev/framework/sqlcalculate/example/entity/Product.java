@@ -21,6 +21,7 @@ public class Product implements EntityTableConvertible {
             + "  `name` varchar(128),"
             + "  `description` varchar(128),"
             + "  `price` decimal(10,2),"
+            + "  `quantity` int(20),"
             + "  `created` datetime,"
             + "  `updated` datetime"
             + ");";
@@ -29,6 +30,7 @@ public class Product implements EntityTableConvertible {
     private String name;
     private String description;
     private String price;
+    private Integer quantity;
     private Date created;
     private Date updated;
 
@@ -72,6 +74,14 @@ public class Product implements EntityTableConvertible {
         this.price = price;
     }
 
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
     public Date getCreated() {
         return created;
     }
@@ -98,6 +108,7 @@ public class Product implements EntityTableConvertible {
                 + convertToInsertVarcharValue(name) + ","
                 + convertToInsertVarcharValue(description) + ","
                 + price + ","
+                + quantity + ","
                 + convertToInsertVarcharValue(created) + ","
                 + convertToInsertVarcharValue(updated) + ")";
     }

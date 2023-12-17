@@ -9,6 +9,7 @@ import com.howdev.framework.sqlcalculate.jdbc.sqlservice.SqlCalculate;
 import com.howdev.framework.sqlcalculate.jdbc.udf.UdfRegistrar;
 import org.apache.commons.collections4.CollectionUtils;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -27,7 +28,11 @@ public class QueryProductStatService extends SqlCalculate {
 
         TableMetaDataContainer tableMetaDataContainer = new TableMetaDataContainer();
         tableMetaDataContainer.addTableMetaData(Product.class, products);
-        Map<String, Object> map = doSqlCalculate(tableMetaDataContainer);
+
+        Map<String, Object> userVariables = new HashMap<>();
+        userVariables.put("startTime", "2023-12-15 00:00:00");
+
+        Map<String, Object> map = calculateSql(tableMetaDataContainer, userVariables);
         return map;
     }
 

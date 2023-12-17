@@ -14,6 +14,7 @@ public class ProductDTO {
     private String name;
     private String description;
     private String price;
+    private Integer quantity;
     private Date created;
     private Date updated;
 
@@ -55,6 +56,14 @@ public class ProductDTO {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public Date getCreated() {
