@@ -1,0 +1,13 @@
+### 第一行：POST请求，请求地址
+### 第二行：请求头信息，多个请求头信息依次写下去(第三行、第四行……)
+### 第N行：写具体的请求体，这里是JSON串，请求头和请求体之间要空出一行
+POST http://localhost:8080/user/addUser
+Content-Type: application/json
+
+{
+  "name":"测试2",
+  "gender":"1",
+  "birthDate":"1995-01-01"
+}
+
+

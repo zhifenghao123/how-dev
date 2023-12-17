@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * MgDecisionServiceImpl class
@@ -33,5 +34,11 @@ public class MgDecisionServiceImpl implements MgDecisionService {
         mgDecisionInfo.setModifier(operator);
         int insert = mgDecisionInfoMapper.insert(mgDecisionInfo);
         return insert == 1;
+    }
+
+    @Override
+    public List<MgDecisionInfo> selectAll() {
+        List<MgDecisionInfo> mgDecisionInfos = mgDecisionInfoMapper.selectAll();
+        return mgDecisionInfos;
     }
 }
