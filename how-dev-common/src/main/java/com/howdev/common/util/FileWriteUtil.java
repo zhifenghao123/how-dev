@@ -12,6 +12,36 @@ import java.nio.file.Paths;
 /**
  * FileWriteUtil class
  *
+ * Java 中的流（Stream）分为两种类型：字节流和字符流。
+ * 字节流以字节为单位，字符流以字符为单位。
+ * 字节流以 InputStream 和 OutputStream 为基类，字符流以 Reader 和 Writer 为基类。
+ *
+ * （1）字节流（Byte Stream）
+ * 字节流可以处理任何类型的数据，但是它们是以字节为单位进行操作的。Java 中提供了两种字节流：InputStream 和 OutputStream。
+ *
+ * InputStream 是字节输入流，用于从数据源读取数据。InputStream 的常用子类包括：
+ *  1）FileInputStream：用于从文件中读取数据。
+ *  2）ByteArrayInputStream：用于从字节数组中读取数据。
+ *  3）PipedInputStream：用于从管道中读取数据。
+ *
+ *  OutputStream 是字节输出流，用于将数据写入到目标位置。OutputStream 的常用子类包括：
+ *   1）FileOutputStream：用于将数据写入文件。
+ *   2）ByteArrayOutputStream：用于将数据写入字节数组。
+ *   3）PipedOutputStream：用于将数据写入管道。
+ *
+ * （2）字符流（Character Stream）
+ * 字符流用于处理字符数据，它们是以字符为单位进行操作的。Java 中提供了两种字符流：Reader 和 Writer。
+ *
+ * Reader 是字符输入流，用于从数据源读取字符，Reader 的常用子类包括：
+ *  1）FileReader：用于从文件中读取字符。
+ *  2）CharArrayReader：用于从字符数组中读取字符。
+ *  3）StringReader：用于从字符串中读取字符。
+ *
+ * Writer 是字符输出流，用于将字符写入到目标位置，Writer 的常用子类包括：
+ *  1）FileWriter：用于将字符写入到文件。
+ *  2）CharArrayWriter：用于将字符写入到字符数组中。
+ *  3）StringWriter：用于将字符写入到字符串中。
+ *
  * @author haozhifeng
  * @date 2023/09/09
  */
