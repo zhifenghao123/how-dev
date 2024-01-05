@@ -103,7 +103,7 @@ public class UserController {
 
         String fileContent = null;
         try {
-            fileContent = FileReadUtil.readByByteArray(fileName);
+            fileContent = FileReadUtil.readStringByByteArray(fileName);
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
