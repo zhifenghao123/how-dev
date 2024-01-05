@@ -93,9 +93,22 @@ public class FileWriteUtil {
      * @author: haozhifeng
      */
     public static void writeToFileWithFileOutputStream(String filepath, String content) throws IOException {
+        byte[] bytes = content.getBytes();
+        writeToFileWithFileOutputStream(filepath, bytes);
+    }
+
+    /**
+     * 使用 FileOutputStream 写文件
+     *
+     * @param filepath 文件目录
+     * @param bytesData  待写入字节数据内容
+     * @throws IOException
+     * @return:
+     * @author: haozhifeng
+     */
+    public static void writeToFileWithFileOutputStream(String filepath, byte[] bytesData) throws IOException {
         try (FileOutputStream fileOutputStream = new FileOutputStream(filepath)) {
-            byte[] bytes = content.getBytes();
-            fileOutputStream.write(bytes);
+            fileOutputStream.write(bytesData);
         }
     }
 
@@ -110,9 +123,22 @@ public class FileWriteUtil {
      * @author: haozhifeng
      */
     public static void writeToFileWithBufferedOutputStream(String filepath, String content) throws IOException {
+        writeToFileWithBufferedOutputStream(filepath, content.getBytes());
+    }
+
+    /**
+     * 使用 BufferedOutputStream 写文件
+     *
+     * @param filepath 文件目录
+     * @param bytesData  待写入内容
+     * @throws IOException
+     * @return:
+     * @author: haozhifeng
+     */
+    public static void writeToFileWithBufferedOutputStream(String filepath, byte[] bytesData) throws IOException {
         try (BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(
                 new FileOutputStream(filepath))) {
-            bufferedOutputStream.write(content.getBytes());
+            bufferedOutputStream.write(bytesData);
         }
     }
 
@@ -131,6 +157,22 @@ public class FileWriteUtil {
      */
     public static void writeToFileWithFiles(String filepath, String content) throws IOException {
         Files.write(Paths.get(filepath), content.getBytes());
+    }
+
+    /**
+     * 使用 Files 写文件
+     * <p>
+     * Files 类是 JDK 7 添加的新的操作文件的类，它提供了提供了大量处理文件的方法，例如文件复制、读取、写入，获取文件属性、快捷遍历文件目录等，
+     * 这些方法极大的方便了文件的操作
+     *
+     * @param filepath 文件目录
+     * @param bytesData  待写入内容
+     * @throws IOException
+     * @return:
+     * @author: haozhifeng
+     */
+    public static void writeToFileWithFiles(String filepath, byte[] bytesData) throws IOException {
+        Files.write(Paths.get(filepath), bytesData);
     }
 
 
