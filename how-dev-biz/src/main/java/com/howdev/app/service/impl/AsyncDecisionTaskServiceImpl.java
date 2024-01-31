@@ -12,4 +12,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class AsyncDecisionTaskServiceImpl implements AsyncDecisionTaskService {
+
+    @Override
+    public boolean lockTask(AsyncDecisionTaskPo asyncDecisionTask) {
+        return false;
+    }
 }
