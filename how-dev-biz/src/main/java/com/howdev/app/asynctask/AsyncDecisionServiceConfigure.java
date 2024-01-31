@@ -1,9 +1,9 @@
 package com.howdev.app.asynctask;
 
 import com.howdev.api.model.BaseResponse;
-import com.howdev.app.asynctask.task.InitialAsyncDecisionTask;
-import com.howdev.app.asynctask.task.NonInitialAsyncDecisionTask;
-import com.howdev.app.asynctask.task.RetryAsyncDecisionTask;
+import com.howdev.app.asynctask.task.InitialAsyncDecisionTaskHandler;
+import com.howdev.app.asynctask.task.NonInitialAsyncDecisionTaskHandler;
+import com.howdev.app.asynctask.task.RetryAsyncDecisionTaskHandler;
 import com.howdev.app.po.AsyncDecisionTaskPo;
 import com.howdev.framework.async.service.AsyncTaskService;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,7 +34,7 @@ public class AsyncDecisionServiceConfigure {
 
     @Bean
     public AsyncTaskService<AsyncDecisionTaskPo, BaseResponse> initialAsyncDecisionTaskService(
-            ThreadPoolExecutor initialDecisionThreadPool, InitialAsyncDecisionTask initialAsyncDecisionTask) {
+            ThreadPoolExecutor initialDecisionThreadPool, InitialAsyncDecisionTaskHandler initialAsyncDecisionTask) {
         return new AsyncTaskService<>(
                 "initialAsyncDecisionTaskService",
                 initialDecisionThreadPool,
@@ -44,7 +44,7 @@ public class AsyncDecisionServiceConfigure {
 
     @Bean
     public AsyncTaskService<AsyncDecisionTaskPo, BaseResponse> nonInitialAsyncDecisionTaskService(
-            ThreadPoolExecutor nonInitialDecisionThreadPool, NonInitialAsyncDecisionTask nonInitialAsyncDecisionTask) {
+            ThreadPoolExecutor nonInitialDecisionThreadPool, NonInitialAsyncDecisionTaskHandler nonInitialAsyncDecisionTask) {
         return new AsyncTaskService<>(
                 "nonInitialAsyncDecisionTaskService",
                 nonInitialDecisionThreadPool,
@@ -54,7 +54,7 @@ public class AsyncDecisionServiceConfigure {
 
     @Bean
     public AsyncTaskService<AsyncDecisionTaskPo, BaseResponse> retryAsyncDecisionTaskService(
-            ThreadPoolExecutor retryDecisionThreadPool, RetryAsyncDecisionTask retryAsyncDecisionTask) {
+            ThreadPoolExecutor retryDecisionThreadPool, RetryAsyncDecisionTaskHandler retryAsyncDecisionTask) {
         return new AsyncTaskService<>(
                 "retryAsyncDecisionTaskService",
                 retryDecisionThreadPool,

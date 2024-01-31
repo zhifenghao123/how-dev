@@ -2,7 +2,7 @@ package com.howdev.app.asynctask.task;
 
 import com.howdev.api.model.BaseResponse;
 import com.howdev.app.po.AsyncDecisionTaskPo;
-import com.howdev.framework.async.api.AsyncTaskRandom;
+import com.howdev.framework.async.api.AsyncTaskRandomHandler;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
  * @date 2024/01/26
  */
 @Service
-public class AbstractAsyncDecisionTask extends AsyncTaskRandom<AsyncDecisionTaskPo, BaseResponse> {
+public class AbstractAsyncDecisionTaskHandler extends AsyncTaskRandomHandler<AsyncDecisionTaskPo, BaseResponse> {
     @Override
     public void beforeTask(AsyncDecisionTaskPo data) {
 

@@ -11,7 +11,7 @@ import java.util.List;
  * @author haozhifeng
  * @date 2023/06/29
  */
-public abstract class AsyncTaskRandom<T, R> implements AsyncTask<T, R> {
+public abstract class AsyncTaskRandomHandler<T, R> implements AsyncTaskHandler<T, R> {
     /**
      * 获取异步任务待执行（候选）的原始数据集合
      *
