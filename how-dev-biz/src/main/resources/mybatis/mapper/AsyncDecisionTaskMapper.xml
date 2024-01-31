@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.howdev.app.mapper.AsyncDecisionTaskMapper">
+  <resultMap id="BaseResultMap" type="com.howdev.app.po.AsyncDecisionTaskPo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="decision_id" jdbcType="VARCHAR" property="decisionId" />
+    <result column="stage" jdbcType="VARCHAR" property="stage" />
+    <result column="decision_key" jdbcType="VARCHAR" property="decisionKey" />
+    <result column="queue_type" jdbcType="VARCHAR" property="queueType" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="idc_tag" jdbcType="VARCHAR" property="idcTag" />
+    <result column="request_params" jdbcType="VARCHAR" property="requestParams" />
+    <result column="system_params" jdbcType="VARCHAR" property="systemParams" />
+    <result column="lock_time" jdbcType="TIMESTAMP" property="lockTime" />
+    <result column="lock_ip" jdbcType="VARCHAR" property="lockIp" />
+    <result column="retry_count" jdbcType="INTEGER" property="retryCount" />
+    <result column="retry_time" jdbcType="TIMESTAMP" property="retryTime" />
+    <result column="error_code" jdbcType="VARCHAR" property="errorCode" />
+    <result column="error_msg" jdbcType="VARCHAR" property="errorMsg" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, decision_id, stage, decision_key, queue_type, `status`, idc_tag, request_params, 
+    system_params, lock_time, lock_ip, retry_count, retry_time, error_code, error_msg, 
+    create_time, update_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from async_decision_task
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from async_decision_task
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.howdev.app.po.AsyncDecisionTaskPo" useGeneratedKeys="true">
+    insert into async_decision_task (decision_id, stage, decision_key, 
+      queue_type, `status`, idc_tag, 
+      request_params, system_params, lock_time, 
+      lock_ip, retry_count, retry_time, 
+      error_code, error_msg, create_time, 
+      update_time, version)
+    values (#{decisionId,jdbcType=VARCHAR}, #{stage,jdbcType=VARCHAR}, #{decisionKey,jdbcType=VARCHAR}, 
+      #{queueType,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{idcTag,jdbcType=VARCHAR}, 
+      #{requestParams,jdbcType=VARCHAR}, #{systemParams,jdbcType=VARCHAR}, #{lockTime,jdbcType=TIMESTAMP}, 
+      #{lockIp,jdbcType=VARCHAR}, #{retryCount,jdbcType=INTEGER}, #{retryTime,jdbcType=TIMESTAMP}, 
+      #{errorCode,jdbcType=VARCHAR}, #{errorMsg,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{version,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.howdev.app.po.AsyncDecisionTaskPo" useGeneratedKeys="true">
+    insert into async_decision_task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="decisionId != null">
+        decision_id,
+      </if>
+      <if test="stage != null">
+        stage,
+      </if>
+      <if test="decisionKey != null">
+        decision_key,
+      </if>
+      <if test="queueType != null">
+        queue_type,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="idcTag != null">
+        idc_tag,
+      </if>
+      <if test="requestParams != null">
+        request_params,
+      </if>
+      <if test="systemParams != null">
+        system_params,
+      </if>
+      <if test="lockTime != null">
+        lock_time,
+      </if>
+      <if test="lockIp != null">
+        lock_ip,
+      </if>
+      <if test="retryCount != null">
+        retry_count,
+      </if>
+      <if test="retryTime != null">
+        retry_time,
+      </if>
+      <if test="errorCode != null">
+        error_code,
+      </if>
+      <if test="errorMsg != null">
+        error_msg,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="decisionId != null">
+        #{decisionId,jdbcType=VARCHAR},
+      </if>
+      <if test="stage != null">
+        #{stage,jdbcType=VARCHAR},
+      </if>
+      <if test="decisionKey != null">
+        #{decisionKey,jdbcType=VARCHAR},
+      </if>
+      <if test="queueType != null">
+        #{queueType,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="idcTag != null">
+        #{idcTag,jdbcType=VARCHAR},
+      </if>
+      <if test="requestParams != null">
+        #{requestParams,jdbcType=VARCHAR},
+      </if>
+      <if test="systemParams != null">
+        #{systemParams,jdbcType=VARCHAR},
+      </if>
+      <if test="lockTime != null">
+        #{lockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lockIp != null">
+        #{lockIp,jdbcType=VARCHAR},
+      </if>
+      <if test="retryCount != null">
+        #{retryCount,jdbcType=INTEGER},
+      </if>
+      <if test="retryTime != null">
+        #{retryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="errorCode != null">
+        #{errorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="errorMsg != null">
+        #{errorMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.howdev.app.po.AsyncDecisionTaskPo">
+    update async_decision_task
+    <set>
+      <if test="decisionId != null">
+        decision_id = #{decisionId,jdbcType=VARCHAR},
+      </if>
+      <if test="stage != null">
+        stage = #{stage,jdbcType=VARCHAR},
+      </if>
+      <if test="decisionKey != null">
+        decision_key = #{decisionKey,jdbcType=VARCHAR},
+      </if>
+      <if test="queueType != null">
+        queue_type = #{queueType,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="idcTag != null">
+        idc_tag = #{idcTag,jdbcType=VARCHAR},
+      </if>
+      <if test="requestParams != null">
+        request_params = #{requestParams,jdbcType=VARCHAR},
+      </if>
+      <if test="systemParams != null">
+        system_params = #{systemParams,jdbcType=VARCHAR},
+      </if>
+      <if test="lockTime != null">
+        lock_time = #{lockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lockIp != null">
+        lock_ip = #{lockIp,jdbcType=VARCHAR},
+      </if>
+      <if test="retryCount != null">
+        retry_count = #{retryCount,jdbcType=INTEGER},
+      </if>
+      <if test="retryTime != null">
+        retry_time = #{retryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="errorCode != null">
+        error_code = #{errorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="errorMsg != null">
+        error_msg = #{errorMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.howdev.app.po.AsyncDecisionTaskPo">
+    update async_decision_task
+    set decision_id = #{decisionId,jdbcType=VARCHAR},
+      stage = #{stage,jdbcType=VARCHAR},
+      decision_key = #{decisionKey,jdbcType=VARCHAR},
+      queue_type = #{queueType,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=TINYINT},
+      idc_tag = #{idcTag,jdbcType=VARCHAR},
+      request_params = #{requestParams,jdbcType=VARCHAR},
+      system_params = #{systemParams,jdbcType=VARCHAR},
+      lock_time = #{lockTime,jdbcType=TIMESTAMP},
+      lock_ip = #{lockIp,jdbcType=VARCHAR},
+      retry_count = #{retryCount,jdbcType=INTEGER},
+      retry_time = #{retryTime,jdbcType=TIMESTAMP},
+      error_code = #{errorCode,jdbcType=VARCHAR},
+      error_msg = #{errorMsg,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

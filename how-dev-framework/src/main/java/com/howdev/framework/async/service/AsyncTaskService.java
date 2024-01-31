@@ -1,6 +1,6 @@
 package com.howdev.framework.async.service;
 
-import com.howdev.framework.async.api.AsyncTask;
+import com.howdev.framework.async.api.AsyncTaskHandler;
 import com.howdev.framework.async.model.AsyncTaskStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +34,7 @@ public class AsyncTaskService<T, R> implements InitializingBean {
     /**
      * 异步任务
      */
-    private final AsyncTask<T, R> asyncTask;
+    private final AsyncTaskHandler<T, R> asyncTaskHandler;
 
     /**
      * 空闲时间线程执行间隔，毫秒。
@@ -59,15 +59,15 @@ public class AsyncTaskService<T, R> implements InitializingBean {
     @Value("${common.async-task-service.close-auto-start:0}")
     private int closeAutoStart;
 
-    public AsyncTaskService(String taskName, ThreadPoolExecutor executorService, AsyncTask<T, R> asyncTask) {
+    public AsyncTaskService(String taskName, ThreadPoolExecutor executorService, AsyncTaskHandler<T, R> asyncTaskHandler) {
         this.taskName = taskName;
         this.executorService = executorService;
-        this.asyncTask = asyncTask;
+        this.asyncTaskHandler = asyncTaskHandler;
     }
 
-    public AsyncTaskService(String taskName, ThreadPoolExecutor executorService, AsyncTask<T, R> asyncTask,
+    public AsyncTaskService(String taskName, ThreadPoolExecutor executorService, AsyncTaskHandler<T, R> asyncTaskHandler,
                             long idleWaitTimeMillis) {
-        this(taskName, executorService, asyncTask);
+        this(taskName, executorService, asyncTaskHandler);
 
         this.idleWaitTimeMillis = idleWaitTimeMillis;
         if (idleWaitTimeMillis < 0) {
@@ -161,7 +161,7 @@ public class AsyncTaskService<T, R> implements InitializingBean {
         Exception runException = null;
 
         try {
-            taskData = asyncTask.getTaskData();
+            taskData = asyncTaskHandler.getTaskData();
 
             // 计算获取数据耗时
             getDataCost = System.currentTimeMillis() - startTime;
@@ -181,12 +181,12 @@ public class AsyncTaskService<T, R> implements InitializingBean {
 
             // 任务执行前逻辑
             long beforeTaskTime = System.currentTimeMillis();
-            asyncTask.beforeTask(taskData);
+            asyncTaskHandler.beforeTask(taskData);
             beforeTaskCost = System.currentTimeMillis() - beforeTaskTime;
 
             // 执行任务
             long startTaskTime = System.currentTimeMillis();
-            result = asyncTask.executeTask(taskData);
+            result = asyncTaskHandler.executeTask(taskData);
             handleTaskCost = System.currentTimeMillis() - startTaskTime;
 
         } catch (Exception e) {
@@ -195,7 +195,7 @@ public class AsyncTaskService<T, R> implements InitializingBean {
         }
         try {
             long afterTaskTime = System.currentTimeMillis();
-            asyncTask.afterTask(taskData, result, startTime, runException);
+            asyncTaskHandler.afterTask(taskData, result, startTime, runException);
             afterTaskCost = System.currentTimeMillis() - afterTaskTime;
         } catch (Exception e) {
             LOGGER.error("ASYNC_SDK [{}] after task execution failed.", taskName, e);
@@ -311,8 +311,8 @@ public class AsyncTaskService<T, R> implements InitializingBean {
         return executorService;
     }
 
-    public AsyncTask<T, R> getAsyncTask() {
-        return asyncTask;
+    public AsyncTaskHandler<T, R> getAsyncTask() {
+        return asyncTaskHandler;
     }
 
     public boolean isStartSwitch() {

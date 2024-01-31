@@ -8,7 +8,7 @@ package com.howdev.framework.async.api;
  * @author haozhifeng
  * @date 2023/06/29
  */
-public interface AsyncTask<T, R> {
+public interface AsyncTaskHandler<T, R> {
 
     /**
      * 获取异步任务待执行的原始数据
