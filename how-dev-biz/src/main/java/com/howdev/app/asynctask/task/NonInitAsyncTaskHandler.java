@@ -9,5 +9,5 @@ import org.springframework.stereotype.Component;
  * @date 2024/01/26
  */
 @Component
-public class NonInitialAsyncTaskHandler extends AbstractAsyncTaskHandler {
+public class NonInitAsyncTaskHandler extends AbstractAsyncTaskHandler {
 }
