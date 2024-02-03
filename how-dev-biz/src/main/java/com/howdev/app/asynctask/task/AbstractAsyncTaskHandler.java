@@ -16,7 +16,7 @@ import java.util.List;
  * @date 2024/01/26
  */
 @Service
-public class AbstractAsyncDecisionTaskHandler extends AsyncTaskRandomHandler<AsyncDecisionTaskPo, BaseResponse> {
+public class AbstractAsyncTaskHandler extends AsyncTaskRandomHandler<AsyncDecisionTaskPo, BaseResponse> {
 
     AsyncDecisionTaskService asyncDecisionTaskService;
 
