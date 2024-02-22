@@ -27,7 +27,9 @@ public class AbstractAsyncTaskHandler extends AsyncTaskRandomHandler<AsyncDecisi
 
     @Override
     protected boolean lockData(AsyncDecisionTaskPo data) {
-        return asyncDecisionTaskService.lockTask(data);
+        // TODO:
+        String localIp = "127.0.0.1";
+        return asyncDecisionTaskService.lockTask(data.getId(), localIp);
     }
 
     @Override

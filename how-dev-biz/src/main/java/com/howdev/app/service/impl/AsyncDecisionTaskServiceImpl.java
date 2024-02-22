@@ -1,6 +1,5 @@
 package com.howdev.app.service.impl;
 
-import com.howdev.app.po.AsyncDecisionTaskPo;
 import com.howdev.app.service.AsyncDecisionTaskService;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class AsyncDecisionTaskServiceImpl implements AsyncDecisionTaskService {
 
     @Override
-    public boolean lockTask(AsyncDecisionTaskPo asyncDecisionTask) {
+    public boolean lockTask(Long asyncDecisionTaskId, String lockIp) {
         return false;
     }
 }

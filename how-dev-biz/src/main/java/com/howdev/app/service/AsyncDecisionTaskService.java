@@ -1,7 +1,5 @@
 package com.howdev.app.service;
 
-import com.howdev.app.po.AsyncDecisionTaskPo;
-
 /**
  * AsyncDecisionTaskService class
  *
@@ -11,8 +9,10 @@ import com.howdev.app.po.AsyncDecisionTaskPo;
 public interface AsyncDecisionTaskService {
     /**
      * 锁定任务
-     * @param asyncDecisionTask
+     *
+     * @param asyncDecisionTaskId
+     * @param lockIp
      * @return
      */
-    boolean lockTask(AsyncDecisionTaskPo asyncDecisionTask);
+    boolean lockTask(Long asyncDecisionTaskId, String lockIp);
 }
