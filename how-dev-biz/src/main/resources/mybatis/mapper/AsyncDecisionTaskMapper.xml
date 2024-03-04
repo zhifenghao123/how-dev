@@ -237,4 +237,21 @@
       version = #{version,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="queryInitAsyncTasks" resultType="com.howdev.app.po.AsyncDecisionTaskPo">
+    select
+    <include refid="Base_Column_List"></include>
+    from async_decision_task
+    where
+    queue_type = "normal"
+    and
+    stage = "STAGE_1"
+    and
+    ((status = 0 and idc = #{clusterName})
+    or
+    (status = 0 and update_time <![CDATA[<]]> DATE_SUB(now(),interval #{clusterInterval} second))
+    or
+    (status = 1 and lock_time <![CDATA[<=]]> DATE_SUB(now(),interval 5 minute)))
+    limit 5
+  </select>
+
 </mapper>
