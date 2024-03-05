@@ -237,7 +237,7 @@
       version = #{version,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <select id="queryInitAsyncTasks" resultType="com.howdev.app.po.AsyncDecisionTaskPo">
+  <select id="queryInitAsyncTasks" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"></include>
     from async_decision_task
@@ -248,10 +248,39 @@
     and
     ((status = 0 and idc = #{clusterName})
     or
-    (status = 0 and update_time <![CDATA[<]]> DATE_SUB(now(),interval #{clusterInterval} second))
+    (status = 0 and update_time <![CDATA[<]]> DATE_SUB(now(),interval #{acrossIdcInterval} second))
     or
     (status = 1 and lock_time <![CDATA[<=]]> DATE_SUB(now(),interval 5 minute)))
     limit 5
   </select>
 
+  <select id="queryNonInitAsyncTasks" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from async_decision_task
+    where
+    queue_type = "normal"
+    and
+    msg_type <![CDATA[!=]]> "STAGE_1"
+    and
+    ((status = 0 and idc = #{clusterName})
+    or
+    (status = 0 and update_time <![CDATA[<]]> DATE_SUB(now(),interval #{acrossIdcInterval} second))
+    or
+    (status = 1 and lock_time <![CDATA[<=]]> DATE_SUB(now(),interval 5 minute)))
+    limit 5
+  </select>
+
+  <select id="queryRetryTask" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from async_decision_task
+    where
+    queue_type = "retry"
+    and
+    status = 3
+    and
+    retry_time <![CDATA[<]]> now()
+    limit 5
+  </select>
 </mapper>

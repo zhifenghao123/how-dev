@@ -27,5 +27,10 @@ public interface AsyncDecisionTaskService {
      * @return:
      * @author: haozhifeng
      */
-    List<AsyncDecisionTaskPo> queryInitAsyncTasks(String idcTag);
+    List<AsyncDecisionTaskPo> queryInitAsyncTasks(String idcTag, int acrossIdcInterval);
+
+    List<AsyncDecisionTaskPo> queryNonInitAsyncTasks(String idcTag, int acrossIdcInterval);
+
+    List<AsyncDecisionTaskPo> queryRetryTask();
+
 }

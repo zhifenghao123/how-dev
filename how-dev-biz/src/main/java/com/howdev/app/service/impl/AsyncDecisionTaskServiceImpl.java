@@ -25,8 +25,20 @@ public class AsyncDecisionTaskServiceImpl implements AsyncDecisionTaskService {
     }
 
     @Override
-    public List<AsyncDecisionTaskPo> queryInitAsyncTasks(String idcTag) {
-        List<AsyncDecisionTaskPo> initAsyncTasks = asyncDecisionTaskMapper.queryInitAsyncTasks(idcTag, 10);
+    public List<AsyncDecisionTaskPo> queryInitAsyncTasks(String idcTag, int acrossIdcInterval) {
+        List<AsyncDecisionTaskPo> initAsyncTasks = asyncDecisionTaskMapper.queryInitAsyncTasks(idcTag, acrossIdcInterval);
+        return initAsyncTasks;
+    }
+
+    @Override
+    public List<AsyncDecisionTaskPo> queryNonInitAsyncTasks(String idcTag, int acrossIdcInterval) {
+        List<AsyncDecisionTaskPo> initAsyncTasks = asyncDecisionTaskMapper.queryNonInitAsyncTasks(idcTag, acrossIdcInterval);
+        return initAsyncTasks;
+    }
+
+    @Override
+    public List<AsyncDecisionTaskPo> queryRetryTask() {
+        List<AsyncDecisionTaskPo> initAsyncTasks = asyncDecisionTaskMapper.queryRetryTask();
         return initAsyncTasks;
     }
 }

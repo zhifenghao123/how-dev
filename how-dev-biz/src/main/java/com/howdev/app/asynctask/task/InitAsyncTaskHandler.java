@@ -17,6 +17,6 @@ public class InitAsyncTaskHandler extends AbstractAsyncTaskHandler {
     @Override
     protected List<AsyncDecisionTaskPo> getTaskDataList() {
         String idcTag = "idc-1";
-        return asyncDecisionTaskService.queryInitAsyncTasks(idcTag);
+        return asyncDecisionTaskService.queryInitAsyncTasks(idcTag, 10);
     }
 }
