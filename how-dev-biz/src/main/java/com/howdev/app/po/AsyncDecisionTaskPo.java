@@ -25,6 +25,7 @@ public class AsyncDecisionTaskPo implements Serializable {
 
     /**
      * 阶段，如果一个决策需要由多个不连续的若干阶段处理，而每个阶段需要由其他系统或时机异步触发，则对应待触发的阶段单独有一条异步任务
+     * 例如，STAGE_1,STAGE_2,STAGE_3
      */
     private String stage;
 

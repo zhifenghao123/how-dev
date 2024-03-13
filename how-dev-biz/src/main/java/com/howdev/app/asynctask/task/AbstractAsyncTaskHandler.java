@@ -7,8 +7,6 @@ import com.howdev.framework.async.api.AsyncTaskRandomHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 /**
  * AbstractAsyncDecisionTask class
  *
@@ -16,7 +14,7 @@ import java.util.List;
  * @date 2024/01/26
  */
 @Service
-public class AbstractAsyncTaskHandler extends AsyncTaskRandomHandler<AsyncDecisionTaskPo, BaseResponse> {
+public abstract class AbstractAsyncTaskHandler extends AsyncTaskRandomHandler<AsyncDecisionTaskPo, BaseResponse> {
 
     AsyncDecisionTaskService asyncDecisionTaskService;
 
@@ -45,11 +43,6 @@ public class AbstractAsyncTaskHandler extends AsyncTaskRandomHandler<AsyncDecisi
     @Override
     public void afterTask(AsyncDecisionTaskPo data, BaseResponse result, long startTime, Throwable throwable) {
 
-    }
-
-    @Override
-    protected List<AsyncDecisionTaskPo> getTaskDataList() {
-        return null;
     }
 
 }
