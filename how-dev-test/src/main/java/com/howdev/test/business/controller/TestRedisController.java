@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * TestController class
+ * TestRedisController class
  *
  * @author haozhifeng
  * @date 2024/02/28
  */
 @Controller
 @RequestMapping("redistest")
-public class TestController {
+public class TestRedisController {
     @Autowired
     private RedisService redisService;
 
