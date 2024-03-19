@@ -1,0 +1,30 @@
+# ci.yml版本
+version: 2
+# 默认的构建配置
+build:
+  profile: main
+# 所有构建配置的定义
+profiles:
+  # main的构建配置
+  - name: main
+    command: sh build.sh
+    user: "hao_root"
+    runs-on: centos-7
+    with:
+      maven-version: "3.8.1"
+      jdk-version: "8"
+    # 构建产出目录
+    output:
+      - output/a.out
+      - foo/*
+  # dev的构建配置
+  - name: dev
+    command: sh build.sh
+    user: "hao_root"
+    runs-on: centos-7
+    with:
+      maven-version: "3"
+      jdk-version: "14"
+    # 构建产出目录
+    output:
+      - output/*
