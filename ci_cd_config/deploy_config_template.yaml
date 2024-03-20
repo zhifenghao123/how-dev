@@ -1,0 +1,46 @@
+DEPEND:
+  - ENV: "jdk"
+    VERSION: 1.8.0_51s
+  - ENV: "tomcat"
+    VERSION: 8.0.50
+START:
+  - NAME: prod
+    # 托管的命令在实际执行时会自动cd到部署目录：cd ${deploy_path} && sh bin/control start
+    # 因此CMD配置的命令可以是相对路径
+    # 如果执行的脚本没有x权限可以这样配置：sh bin/startup.sh start
+    # 如果执行的脚本有x权限可以这样配置：./bin/startup.sh stop
+    # 如果有多个命令需要执行可以这样配置：sh bin/startup.sh start dev && echo "dev"
+    CMD: sh bin/startup.sh start
+    SLEEP: 10
+  - NAME: dev
+    CMD: sh bin/startup.sh start dev && echo "dev"
+    SLEEP: 10
+STOP:
+  # 如果有多组命令，如：不同环境的配置、不同集群的配置、不同模块的配置可以这样配置
+  - NAME: prod
+    CMD: sh bin/startup.sh stop
+    # CHECK字段配置切流后检查流量的tcp端口
+    # 不配置此参数或配置为0，不检查端口，只进行sleep，sleep时间为TIMEOUT字段设置值
+    # 配置此端口后检查本机对应端口的tcp连接，连接为0视为流量处理完成，检查超时时间为TIMEOUT字段设置值
+    CHECK: 8081
+    # TIMEOUT字段，check阶段超时时间
+    # 不配置此参数或配置为0， 默认超时时间为150秒
+    # 配置为>0，超时为对应时间（不建议配置小于120秒）
+    TIMEOUT: 150
+    # SLEEP字段，check阶段结束后默认sleep时间：
+    # 不配置此参数或配置为0，默认sleep 20秒
+    # 配置参数-1，不进行sleep
+    # 配置为>0，sleep对应时间
+    SLEEP: 20
+  - NAME: dev
+    CMD: ./bin/startup.sh stop dev
+    SLEEP: 10
+  - NAME: app01
+    CMD: ./bin/startup.sh stop && echo "app01"
+    CHECK: 8081
+RESTART:
+  - NAME: prod
+    CMD: ./bin/startup.sh restart
+    CHECK: 8081
+    TIMEOUT: 150
+    SLEEP: 10
