@@ -1,0 +1,9 @@
+DEPEND:
+  - ENV: "jdk"
+    VERSION: 1.8.0_51s
+START:
+  - NAME: how-dev-biz
+    CMD: sh startup.sh restart online
+STOP:
+  - NAME: how-dev-biz
+    CMD: sh startup.sh stop
