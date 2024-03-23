@@ -1,0 +1,46 @@
+# 默认的构建profile
+build:
+  profile: publish-api
+# 定义了所有的构建配置
+
+profiles:
+  # 发布how-dev-api的构建配置
+  - name: publish-api
+    command: sh publish.sh how-dev-api
+    user: "hao_root"
+    runs-on: centos-7
+    with:
+      maven-version: "3.8.1"
+      jdk-version: "8"
+    output:
+      - output/*
+  # 发布how-dev-common的构建配置
+  - name: publish-common
+    command: sh publish.sh how-dev-common
+    user: "hao_root"
+    runs-on: centos-7
+    with:
+      maven-version: "3.8.1"
+      jdk-version: "3"
+    output:
+      - output/*
+  # 构建how-dev-biz的构建配置
+  - name: build-biz
+    command: sh build.sh how-dev-biz
+    user: "hao_root"
+    runs-on: centos-7
+    with:
+      maven-version: "3.8.1"
+      jdk-version: "8"
+    output:
+      - output/*
+  # 构建how-dev-manage的构建配置
+  - name: build-manage
+    command: sh build.sh how-dev-manage
+    user: "hao_root"
+    runs-on: centos-7
+    with:
+      maven-version: "3.8.1"
+      jdk-version: "8"
+    output:
+      - output/*
