@@ -1,4 +1,4 @@
-package com.howdev.manage.util.log.core;
+package com.howdev.framework.log.core;
 
 /**
  * ErrorCodeEnum class

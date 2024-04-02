@@ -1,6 +1,6 @@
 package com.howdev.manage.enumeration;
 
-import com.howdev.manage.util.log.core.ErrorCodeEnum;
+import com.howdev.framework.log.core.ErrorCodeEnum;
 
 import java.text.MessageFormat;
 
