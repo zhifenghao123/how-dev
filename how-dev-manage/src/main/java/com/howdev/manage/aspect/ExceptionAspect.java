@@ -27,6 +27,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolationException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -108,7 +109,8 @@ public class ExceptionAspect {
             try {
 
                 result = proceedingJoinPoint.proceed();
-            } catch (Throwable e) {
+            } catch (ConstraintViolationException e) {
+            }catch (Throwable e) {
                 // TODO LOG
                 LOGGER.error("build error response fail.", e);
             }
@@ -117,7 +119,7 @@ public class ExceptionAspect {
         }
 
         // 超出重试次数依然无法获得结果, 设置未知错误的返回
-        if (result == null) {
+        if (!methodSignature.getReturnType().equals(Void.TYPE) && result == null) {
             result = buildErrorResponse(methodSignature, RetCodeEnum.FAILED, "Unknown error!");
         }
 
