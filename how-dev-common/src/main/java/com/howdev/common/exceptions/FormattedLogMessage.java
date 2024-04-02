@@ -1,4 +1,4 @@
-package com.howdev.framework.log.core;
+package com.howdev.common.exceptions;
 
 import java.text.MessageFormat;
 

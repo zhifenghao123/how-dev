@@ -57,7 +57,7 @@
 
         <dependency>
             <groupId>com.howdev</groupId>
-            <artifactId>how-dev-framework</artifactId>
+            <artifactId>how-dev-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

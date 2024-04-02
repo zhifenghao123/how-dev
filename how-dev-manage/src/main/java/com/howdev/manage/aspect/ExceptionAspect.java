@@ -2,7 +2,7 @@ package com.howdev.manage.aspect;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.howdev.framework.log.core.LogMessageContainer;
+import com.howdev.common.exceptions.LogMessageContainer;
 import com.howdev.manage.enumeration.RetCodeEnum;
 import com.howdev.manage.exception.RetCodeException;
 import com.howdev.manage.util.JacksonUtil;
