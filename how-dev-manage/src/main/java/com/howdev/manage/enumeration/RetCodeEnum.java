@@ -1,6 +1,6 @@
 package com.howdev.manage.enumeration;
 
-import com.howdev.manage.util.log.core.ErrorCodeEnum;
+import com.howdev.common.exceptions.ErrorCodeEnum;
 
 import java.text.MessageFormat;
 
@@ -50,26 +50,6 @@ public enum  RetCodeEnum implements ErrorCodeEnum {
     public String getRetMsg() {
         return retMsg;
     }
-
-    public String getRetMsg(Object[] args) {
-        Object[] nonNullArgs = args;
-        StringBuilder buffer = new StringBuilder(getRetMsg());
-        int size = null == args ? 0 : args.length;
-        if (0 < size) {
-            buffer.append(": ");
-        }
-        for (int i = 0; i < size; i++) {
-            if (args[i] == null) {
-                if (nonNullArgs == args) {
-                    nonNullArgs = args.clone();
-                }
-                nonNullArgs[i] = "null";
-            }
-            buffer.append(" ").append("{").append(i).append("}");
-        }
-        return MessageFormat.format(buffer.toString(), nonNullArgs);
-    }
-
 
     @Override
     public String getErrorCode() {

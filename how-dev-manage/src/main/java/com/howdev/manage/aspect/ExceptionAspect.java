@@ -2,7 +2,9 @@ package com.howdev.manage.aspect;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.howdev.common.exceptions.LogMessageContainer;
 import com.howdev.manage.enumeration.RetCodeEnum;
+import com.howdev.manage.exception.RetCodeException;
 import com.howdev.manage.util.JacksonUtil;
 import com.howdev.manage.util.SpelUtil;
 import com.howdev.manage.util.SystemUtil;
@@ -27,9 +29,12 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * ExceptionAspect class
@@ -108,6 +113,16 @@ public class ExceptionAspect {
             try {
 
                 result = proceedingJoinPoint.proceed();
+            } catch (ConstraintViolationException e) {
+                // 处理参数校验异常异常
+                handleConstraintViolationException(e, args, methodSignature);
+            } catch (IllegalArgumentException e){
+                // 处理 IllegalArgumentException 异常
+                result = buildErrorResponse(methodSignature, RetCodeEnum.ILLEGAL_ARGUMENT, e.getMessage());
+            }  catch (RetCodeException e) {
+                // 处理 RetCodeException 异常
+                LOGGER.error("[全局异常捕获] code: {}", e.getRetCode(), e);
+                result = buildErrorResponse(methodSignature, e.getRetCode(), e.getMessage());
             } catch (Throwable e) {
                 // TODO LOG
                 LOGGER.error("build error response fail.", e);
@@ -117,7 +132,7 @@ public class ExceptionAspect {
         }
 
         // 超出重试次数依然无法获得结果, 设置未知错误的返回
-        if (result == null) {
+        if (!methodSignature.getReturnType().equals(Void.TYPE) && result == null) {
             result = buildErrorResponse(methodSignature, RetCodeEnum.FAILED, "Unknown error!");
         }
 
@@ -133,6 +148,32 @@ public class ExceptionAspect {
     private Logger getLogger(ProceedingJoinPoint proceedingJoinPoint) {
         MethodSignature signature = (MethodSignature) proceedingJoinPoint.getSignature();
         return LoggerFactory.getLogger(signature.getDeclaringType());
+    }
+
+    /**
+     * 处理参数校验异常
+     *
+     * @param e               ConstraintViolationException
+     * @param args            方法参数
+     * @param methodSignature 方法签名
+     * @return 根据异常生成返回结果
+     */
+    private Object handleConstraintViolationException(ConstraintViolationException e, Object[] args,
+                                                      MethodSignature methodSignature) {
+        // 错误码固定位参数不合法
+        RetCodeEnum illegalArgRetCode = RetCodeEnum.ILLEGAL_ARGUMENT;
+
+        // 组装异常内的错误信息
+        String errorMsgFromException = e.getConstraintViolations().stream().map(ConstraintViolation::getMessage)
+                .collect(Collectors.joining(" "));
+
+        // 生成错误码对应的错误信息
+        String errorMessage = LogMessageContainer.getFormattedMessage(illegalArgRetCode, errorMsgFromException);
+
+        // TODO LOG.
+
+        // 组装返回结果
+        return buildErrorResponse(methodSignature, RetCodeEnum.ILLEGAL_ARGUMENT, errorMessage);
     }
 
     /**

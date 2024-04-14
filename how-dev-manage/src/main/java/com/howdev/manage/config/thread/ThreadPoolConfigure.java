@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 public class ThreadPoolConfigure {
-    @Value("${how-dev.manage.thread-poll.calculate.core-pool-size:2}")
+    @Value("${how-dev.manage.thread-poll.calculate.exceptions-pool-size:2}")
     private int corePoolSize;
 
     @Value("${how-dev.manage.thread-poll.calculate.max-pool-size:3}")

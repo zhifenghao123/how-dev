@@ -21,7 +21,7 @@ public class AsyncTaskThreadPoolConfig {
     /**
      *  异步任务线程池大小
      */
-    @Value("${async.decision.init.thread.pool.core-pool-size:10}")
+    @Value("${async.decision.init.thread.pool.exceptions-pool-size:10}")
     private int initCorePoolSize;
 
     /**
@@ -40,7 +40,7 @@ public class AsyncTaskThreadPoolConfig {
     /**
      *  异步任务线程池大小
      */
-    @Value("${async.decision.init.thread.pool.core-pool-size:10}")
+    @Value("${async.decision.init.thread.pool.exceptions-pool-size:10}")
     private int nonInitCorePoolSize;
 
     /**
@@ -59,7 +59,7 @@ public class AsyncTaskThreadPoolConfig {
     /**
      *  异步任务线程池大小
      */
-    @Value("${async.decision.non-init.thread.pool.core-pool-size:10}")
+    @Value("${async.decision.non-init.thread.pool.exceptions-pool-size:10}")
     private int retryCorePoolSize;
 
     /**

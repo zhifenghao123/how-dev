@@ -1,7 +1,7 @@
 package com.howdev.manage.exception;
 
+import com.howdev.common.exceptions.LogMessageContainer;
 import com.howdev.manage.enumeration.RetCodeEnum;
-import com.howdev.manage.util.log.core.LogMessageContainer;
 
 /**
  * RetCodeException class
