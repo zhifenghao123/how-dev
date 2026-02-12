@@ -1,0 +1,48 @@
+@accessToken = eyJhbGciOiJIUzUxMiJ9.eyJ0eXBlIjoiYWNjZXNzIiwidXNlcm5hbWUiOiJoaGhoX3EiLCJzdWIiOiJoaGhoX3EiLCJpYXQiOjE3NzA4OTYzMDcsImV4cCI6MTc3MDg5ODEwN30.lr1OMRM-cCczmTYAl61h_whS11Ve_oC5A7yvMPeEtWMPYtolVDdRINEgW0DFdihmUOGG7erdQo6j7wvM7U8ThA
+@refreshToken = eyJhbGciOiJIUzUxMiJ9.eyJ0eXBlIjoicmVmcmVzaCIsInVzZXJuYW1lIjoiaGhoaF9xIiwic3ViIjoiaGhoaF9xIiwiaWF0IjoxNzcwODk2MzA4LCJleHAiOjE3NzE1MDExMDh9.drkZT9qsVOJCHWoCB6eU42g_dZnpBM5pYz3WnkZeaCQVtS5B9ocVj2l3NjnPRNUUsIOdw5xeb-KfV2K_ndJxcQ
+
+### 普通用户注册测试
+POST http://localhost:8080/user/register
+Content-Type: application/json
+
+{
+  "username":"hhhh_q",
+  "password":"123123123"
+}
+
+### 普通用户登录测试
+POST http://localhost:8080/user/login
+Content-Type: application/json
+
+{
+  "username":"hhhh_q",
+  "password":"123123123"
+}
+
+### 刷新token
+POST http://localhost:8080/user/refreshToken
+RefreshToken: {{refreshToken}}
+Content-Type: application/json
+
+{
+}
+
+### 退出
+POST http://localhost:8080/user/logout
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+}
+
+### 获取当前用户信息
+GET http://localhost:8080/user/profile
+Authorization: Bearer {{accessToken}}
+
+### 查询系统中的角色
+GET http://localhost:8080/user/listRoles
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+}

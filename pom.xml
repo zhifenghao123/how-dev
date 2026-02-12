@@ -18,6 +18,7 @@
     <module>how-dev-manage</module>
     <module>how-dev-test</module>
       <module>how-dev-framework</module>
+    <module>how-dev-jwtauth</module>
   </modules>
 
   <!--SpringBoot父级-->

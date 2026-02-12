@@ -1,0 +1,141 @@
+@accessToken = eyJhbGciOiJIUzUxMiJ9.eyJ0eXBlIjoiYWNjZXNzIiwidXNlcm5hbWUiOiJzdXBlcmFkbWluIiwic3ViIjoic3VwZXJhZG1pbiIsImlhdCI6MTc3MDg4Nzc2MiwiZXhwIjoxNzcwODg5NTYyfQ.JkbyqOBXteQbGbMADxM3xFAngFtFZT3eaU3C8JeDkzSErSMaaH3wyhYq0LuHaKM_1aQqTgyxld6bgOXiGBkLBA
+@refreshToken = eyJhbGciOiJIUzUxMiJ9.eyJ0eXBlIjoicmVmcmVzaCIsInVzZXJuYW1lIjoic3VwZXJhZG1pbiIsInN1YiI6InN1cGVyYWRtaW4iLCJpYXQiOjE3NzA4ODc3NjIsImV4cCI6MTc3MTQ5MjU2Mn0.VI1PMDzraNcltrMx1U7k9TgVulX1jzxqSuOjpEKyzvfLV8mvzT7rKgDxGUItk3822jMdIkXTWdhbNjH5Pvy8QQ
+
+### 超级管理员登录测试
+
+POST http://localhost:8080/admin/login
+Content-Type: application/json
+
+{
+  "username":"superadmin",
+  "password":"SuperAdmin123!@#"
+}
+
+### 刷新toekn
+POST http://localhost:8080/admin/refreshToken
+RefreshToken: {{refreshToken}}
+Content-Type: application/json
+
+{
+}
+
+### 退出
+POST http://localhost:8080/admin/logout
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+}
+
+### 查询用户信息
+GET http://localhost:8080/admin/getUserInfo
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "username":"hhhh"
+}
+
+### 查询用户列表
+POST http://localhost:8080/admin/listUsers
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+}
+
+### 查询权限
+POST http://localhost:8080/admin/listPermissions
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+}
+
+### 创建权限
+POST http://localhost:8080/admin/createPermission
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "name":"/user//profile",
+  "url":"/user//profile"
+}
+
+### 更新权限
+POST http://localhost:8080/admin/updatePermission
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "id":1,
+  "name":"/user/profile",
+  "url":"/user/profile"
+}
+
+### 创建角色
+POST http://localhost:8080/admin/createRole
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "name":"role_query_user",
+  "description":"查询用户权限角色"
+}
+
+### 创建角色-查看系统角色信息
+POST http://localhost:8080/admin/createRole
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "name":"role_query_system_role",
+  "description":"查询系统角色信息"
+}
+
+### 查询角色列表
+POST http://localhost:8080/admin/listRoles
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+}
+
+### 查询角色
+POST http://localhost:8080/admin/getRole
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "id": 1
+}
+
+### 给角色绑定权限
+POST http://localhost:8080/admin/attachPermissionToRole
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "roleName":"role_query_user",
+  "permissionNames":["/user/profile"]
+}
+
+### 给用户绑定角色-查询系统角色信息
+POST http://localhost:8080/admin/grantRoleToUser
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "userId":"bbf7ac52-8675-4cfe-b0aa-4357cd5d6622",
+  "roleNames":["role_query_system_role"]
+}
+
+### 给用户解绑角色
+POST http://localhost:8080/admin/revokeRoleFromUser
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "userId":"bbf7ac52-8675-4cfe-b0aa-4357cd5d6622",
+  "roleNames":["role_query_system_role"]
+}
