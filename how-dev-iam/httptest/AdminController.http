@@ -1,0 +1,10 @@
+### expiredTempAccessKeyClean
+GET http://localhost:8080/admin/listUsers
+Content-Type: application/json
+
+{
+}
+
+###
+
+###

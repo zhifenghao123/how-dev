@@ -1,0 +1,19 @@
+
+### 申请临时访问密钥
+POST http://localhost:8080/user/tempAccessKey/apply
+Content-Type: application/json
+
+{
+  "userId": "bbf7ac52-8675-4cfe-b0aa-4357cd5d6622",
+  "durationSeconds": 3600
+}
+
+
+### 查看临时访问密钥
+POST http://localhost:8080/user/tempAccessKey/query
+Content-Type: application/json
+
+{
+  "tempAccessKeyId": "",
+  "sessionToken": ""
+}

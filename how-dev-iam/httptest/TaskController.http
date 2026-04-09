@@ -1,0 +1,21 @@
+
+### 查看访问密钥
+POST http://localhost:8080//task/expiredTempAccessKeyClean
+Content-Type: application/json
+
+{
+}
+
+### tempAccessKeySeedGenerate
+POST http://localhost:8080//task/tempAccessKeySeedGenerate
+Content-Type: application/json
+
+{
+}
+
+### tempAccessKeyGenerate
+POST http://localhost:8080//task/tempAccessKeyGenerate
+Content-Type: application/json
+
+{
+}

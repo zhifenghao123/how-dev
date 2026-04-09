@@ -1,0 +1,52 @@
+
+### 查看访问密钥
+GET http://localhost:8080/user/accessKey/list
+Content-Type: application/json
+
+{
+  "userId": "bbf7ac52-8675-4cfe-b0aa-4357cd5d6622"
+}
+
+### 申请访问密钥
+POST http://localhost:8080/user/accessKey/apply
+Content-Type: application/json
+
+{
+"userId": "bbf7ac52-8675-4cfe-b0aa-4357cd5d6622"
+}
+
+### 禁用访问密钥
+POST http://localhost:8080/user/accessKey/disable
+Content-Type: application/json
+
+{
+  "userId": "bbf7ac52-8675-4cfe-b0aa-4357cd5d6622",
+  "accessKeyId": "xxxxxx"
+}
+
+### 启用访问密钥
+POST http://localhost:8080/user/accessKey/enable
+Content-Type: application/json
+
+{
+  "userId": "bbf7ac52-8675-4cfe-b0aa-4357cd5d6622",
+  "accessKeyId": "xxxxxx"
+}
+
+### 删除访问密钥
+POST http://localhost:8080/user/accessKey/delete
+Content-Type: application/json
+
+{
+  "userId": "bbf7ac52-8675-4cfe-b0aa-4357cd5d6622",
+  "accessKeyId": "xxxxxx"
+}
+
+### 查看访问密钥操作记录
+GET http://localhost:8080/user/accessKey/listOperation
+Content-Type: application/json
+
+{
+  "userId": "bbf7ac52-8675-4cfe-b0aa-4357cd5d6622"
+}
+

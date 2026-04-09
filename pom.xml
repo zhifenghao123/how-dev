@@ -19,6 +19,7 @@
     <module>how-dev-test</module>
       <module>how-dev-framework</module>
     <module>how-dev-jwtauth</module>
+      <module>how-dev-iam</module>
   </modules>
 
   <!--SpringBoot父级-->

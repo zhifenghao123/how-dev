@@ -1,0 +1,18 @@
+### 签名验证测试（POST）
+### 注意：Authorization 头需要通过Client 客户端动态生成
+### 以下仅为格式示例，实际使用时需要替换为有效的签名值
+POST http://localhost:8080/sign/verify
+Content-Type: application/json; charset=utf-8
+Host: localhost:8080
+X-Timestamp: 1551113065
+Authorization: HMAC-SHA256 AccessKeyId=xxxxxxxx, SignedHeaders=content-type;host, Signature=替换为实际签名值
+
+{"data":"hello, signature!"}
+
+### 签名验证测试（GET）
+### 注意：Authorization 头需要通过Client 客户端动态生成
+GET http://localhost:8080/sign/verify
+Content-Type: application/json; charset=utf-8
+Host: localhost:8080
+X-Timestamp: 1551113065
+Authorization: HMAC-SHA256 AccessKeyId=xxxxxxxx, SignedHeaders=content-type;host, Signature=替换为实际签名值
